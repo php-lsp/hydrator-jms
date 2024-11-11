@@ -1,12 +1,12 @@
 {
     "name": "php-lsp/hydrator-jms",
-    "description": "JMS Hydrator Implementation",
+    "description": "JMS Hydrator",
     "type": "library",
     "license": "MIT",
-    "keywords": ["hydrator", "mapping", "serialization", "jms", "implementation"],
+    "keywords": ["jms", "mapper", "hydrator", "bridge", "php", "lsp"],
     "support": {
         "source": "https://github.com/php-lsp/hydrator-jms",
-        "issues": "https://github.com/php-lsp/hydrator-jms/issues"
+        "issues": "https://github.com/php-lsp/php-lsp/issues"
     },
     "authors": [
         {
@@ -17,9 +17,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "jms/serializer": "^3.0",
         "php-lsp/hydrator-contracts": "^1.0",
-        "psr/cache": "^1.0|^2.0|^3.0"
+        "jms/serializer": "^3.30"
     },
     "autoload": {
         "psr-4": {
@@ -31,7 +30,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Lsp\\Hydrator\\JMS\\Tests\\": "tests"
+            "Lsp\\Hydrator\\JMS\\\\Tests\\": "tests"
         }
     },
     "provide": {

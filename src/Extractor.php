@@ -7,30 +7,24 @@ namespace Lsp\Hydrator\JMS;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializationContext;
 use Lsp\Contracts\Hydrator\ExtractorInterface;
+use Lsp\Hydrator\JMS\Exception\MappingException;
 
 final class Extractor implements ExtractorInterface
 {
     public function __construct(
         private readonly ArrayTransformerInterface $transformer,
+        private readonly SerializationContext $context = new SerializationContext(),
     ) {}
 
     /**
-     * @api
+     * @return array<array-key, mixed>
      */
-    public function getArrayTransformer(): ArrayTransformerInterface
+    public function extract(mixed $data, ?string $type = null): array
     {
-        return $this->transformer;
-    }
-
-    public function extract(mixed $data): mixed
-    {
-        $context = (SerializationContext::create())
-            ->setSerializeNull(true);
-
-        if (\is_scalar($data) || $data === null) {
-            return $data;
+        try {
+            return $this->transformer->toArray($data, $this->context, $type);
+        } catch (\Throwable $e) {
+            throw new MappingException($e->getMessage(), previous: $e);
         }
-
-        return $this->transformer->toArray($data, $context);
     }
 }
